@@ -1,0 +1,1636 @@
+/* ==========================================================================
+   SCRAPBOOK BIRTHDAY THEME - STYLESHEET
+   Aesthetic, Cutout Stickers, Handwritten Typography, Mobile-Friendly
+   ========================================================================== */
+
+/* ---------- RESET & BASE ---------- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --bg-color: #ffffff;
+  --text-pink: #ff5580;
+  --text-pink-shadow: rgba(255, 85, 128, 0.2);
+  --sticker-border-width: 0px;
+  --sticker-radius: 14px;
+  --sticker-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+  --sticker-shadow-hover: 0 16px 36px rgba(0, 0, 0, 0.18), 0 4px 10px rgba(0, 0, 0, 0.12);
+  --star-yellow: #fed636;
+  --star-stroke: #f6be12;
+  --primary-pink: #ff6584;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: #0b0b0f;
+  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #333333;
+  overflow-x: hidden;
+  position: relative;
+  user-select: none;
+}
+
+/* ==========================================================================
+   DYNAMIC BACKGROUND SLIDESHOW (VIDEO & FOTO)
+   ========================================================================== */
+.bg-slideshow {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-media-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1),
+              filter 1.1s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform, filter;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-media-layer.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.bg-media-layer.prev {
+  opacity: 0;
+  filter: blur(8px) brightness(0.85);
+  transform: scale(1.15);
+  z-index: 1;
+}
+
+/* Media element (video / img) inside each layer */
+.bg-media-layer video,
+.bg-media-layer img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform-origin: center center;
+}
+
+/* Slow dramatic zoom for photos (Ken Burns effect) */
+.bg-media-layer.active img {
+  animation: kenBurnsDramatic 2.4s ease-out forwards;
+}
+
+@keyframes kenBurnsDramatic {
+  0% {
+    transform: scale(1);
+    filter: brightness(1) saturate(1);
+  }
+  100% {
+    transform: scale(1.12);
+    filter: brightness(1.04) saturate(1.05);
+  }
+}
+
+/* Soft aesthetic dark transparent overlay */
+.bg-aesthetic-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  background: radial-gradient(circle at center, rgba(14, 14, 20, 0.45) 0%, rgba(6, 6, 10, 0.72) 100%);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  pointer-events: none;
+}
+
+/* ---------- INTRO OVERLAY (LAYAR PEMBUKA) ---------- */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(10, 10, 15, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 20px;
+}
+
+.intro-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+.intro-card {
+  background: #ffffff;
+  padding: 40px 32px;
+  border-radius: 24px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 15px 40px rgba(255, 101, 132, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05);
+  border: 4px dashed #ffccd5;
+  animation: cardFloat 4s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.intro-envelope-icon {
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+  display: inline-block;
+  animation: wiggle 2.5s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+.intro-title {
+  font-family: 'Pacifico', 'Caveat', cursive;
+  font-size: 2.2rem;
+  color: var(--text-pink);
+  margin-bottom: 8px;
+  font-weight: normal;
+}
+
+.intro-subtitle {
+  font-size: 1rem;
+  color: #666666;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.btn-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #ff758c 0%, #ff527b 100%);
+  color: #ffffff;
+  border: none;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 14px 34px;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(255, 82, 123, 0.35);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  outline: none;
+}
+
+.btn-open:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(255, 82, 123, 0.45);
+}
+
+.btn-open:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-sparkle-icon {
+  width: 20px;
+  height: 20px;
+  stroke: #ffffff;
+  animation: spinSlow 6s linear infinite;
+}
+
+@keyframes spinSlow {
+  100% { transform: rotate(360deg); }
+}
+
+.intro-tip {
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: #999999;
+}
+
+/* ---------- FLOATING MUSIC CONTROLLER ---------- */
+.music-controller {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  padding: 8px 16px;
+  border-radius: 40px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  border: 2px solid #ffe1e8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.music-controller:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 25px rgba(255, 85, 128, 0.25);
+}
+
+.music-controller.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+}
+
+.disc-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--text-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.disc-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.music-controller.playing .disc-icon svg {
+  animation: spinSlow 3s linear infinite;
+}
+
+.sound-wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 16px;
+}
+
+.sound-wave span {
+  display: block;
+  width: 3px;
+  height: 6px;
+  background-color: var(--text-pink);
+  border-radius: 3px;
+  transition: height 0.2s ease;
+}
+
+.music-controller.playing .sound-wave span:nth-child(1) { animation: wave 1s infinite 0.1s; }
+.music-controller.playing .sound-wave span:nth-child(2) { animation: wave 1s infinite 0.3s; }
+.music-controller.playing .sound-wave span:nth-child(3) { animation: wave 1s infinite 0.2s; }
+.music-controller.playing .sound-wave span:nth-child(4) { animation: wave 1s infinite 0.4s; }
+
+@keyframes wave {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+/* ---------- MAIN SCRAPBOOK STAGE ---------- */
+.scrapbook-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 30px 15px 90px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+/* Base Scrapbook Item (Absolute Positioning Layer) */
+.scrapbook-item {
+  position: absolute;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+  will-change: transform;
+}
+
+/* ---------- CENTER MAIN PIECE ---------- */
+.center-piece {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* Typography for "happy b'day" & "my prettiest girl" */
+.scrapbook-text {
+  font-family: 'Caveat', 'Pacifico', cursive;
+  color: #ff6e98;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 1.5px;
+  text-align: center;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95), 0 0 25px rgba(255, 110, 152, 0.6);
+  user-select: none;
+}
+
+.text-top {
+  font-size: clamp(3rem, 7vw, 4.6rem);
+  margin-bottom: 12px;
+  transform: rotate(-2deg);
+  display: inline-block;
+  animation: titleGentlyFloat 4s ease-in-out infinite;
+}
+
+.text-bottom {
+  font-size: clamp(2.4rem, 6vw, 3.8rem);
+  margin-top: 14px;
+  transform: rotate(1deg);
+  display: inline-block;
+  animation: titleGentlyFloat 4s ease-in-out infinite 2s;
+}
+
+@keyframes titleGentlyFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-4px) rotate(-1deg); }
+}
+
+/* ---------- STICKER CARDS (PHOTO FRAMES) ---------- */
+.sticker-card {
+  position: relative;
+  background: transparent;
+  border: none !important;
+  border-radius: var(--sticker-radius);
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.45));
+  cursor: pointer;
+  overflow: visible;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.35s ease,
+              z-index 0.1s ease;
+}
+
+.sticker-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--sticker-radius);
+  overflow: visible;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sticker-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border: none !important;
+  border-radius: var(--sticker-radius);
+  transition: transform 0.4s ease;
+}
+
+/* Sticker Hover Interactions */
+.sticker-item:hover,
+.sticker-card:hover {
+  z-index: 50 !important;
+}
+
+.sticker-card:hover {
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.65));
+}
+
+.sticker-card:hover .sticker-img {
+  transform: scale(1.05);
+}
+
+/* Main Center Photo Card */
+.main-photo-wrapper {
+  width: clamp(260px, 32vw, 360px);
+  height: clamp(300px, 38vw, 420px);
+  border: none !important;
+  transform: rotate(-1.5deg);
+}
+
+.main-photo-wrapper:hover {
+  transform: rotate(0deg) scale(1.04);
+}
+
+/* Washi Tape Deco on Center Photo */
+.washi-tape {
+  position: absolute;
+  width: 80px;
+  height: 22px;
+  background-color: rgba(255, 204, 213, 0.7);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  backdrop-filter: blur(1px);
+}
+
+.top-tape {
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+}
+
+/* Standard Surrounding Photos (Photos 1, 2, 3, 4 - 2x Bigger) */
+.sticker-item {
+  z-index: 20;
+}
+
+.sticker-item .sticker-card {
+  width: clamp(280px, 26vw, 420px);
+  height: clamp(340px, 32vw, 520px);
+}
+
+/* Mini Sticker Cards (Kittens / Mascots: Base Size) */
+.sticker-card.sticker-mini {
+  width: clamp(95px, 12vw, 145px);
+  height: clamp(95px, 12vw, 145px);
+  border: none !important;
+}
+
+/* Stiker Kiri Atas (Photo 6: Kitten with Heart - 1.5x Lebih Besar) */
+.pos-top-left-mascot .sticker-card {
+  width: clamp(145px, 18vw, 220px);
+  height: clamp(145px, 18vw, 220px);
+}
+
+/* Stiker Kanan Atas (Photo 7: Cat Sticker - 2x Lebih Besar) */
+.pos-top-right-mascot .sticker-card,
+.pos-top-right-doodle .sticker-card {
+  width: clamp(190px, 24vw, 290px);
+  height: clamp(190px, 24vw, 290px);
+}
+
+/* Floating Heart on Top-Left Mascot */
+.heart-float {
+  position: absolute;
+  top: -16px;
+  right: -8px;
+  font-size: 1.4rem;
+  z-index: 15;
+  animation: floatHeart 3s ease-in-out infinite;
+}
+
+@keyframes floatHeart {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.15); }
+}
+
+/* ---------- SPECIFIC SCATTERED POSITIONS (DESKTOP) ---------- */
+/* Top-Left Mascot (Photo 6: Kitten with heart - Behind Photo 1, 1.5x) */
+.pos-top-left-mascot {
+  top: 4%;
+  left: 0.5%;
+  z-index: 18 !important;
+}
+
+.sticker-rot-left-2 {
+  transform: rotate(-10deg);
+}
+.pos-top-left-mascot:hover {
+  z-index: 28 !important;
+}
+.pos-top-left-mascot:hover .sticker-rot-left-2 {
+  transform: rotate(-4deg) scale(1.1);
+}
+
+/* Top-Left Photo 1 - Layered on top of Photo 6 */
+.pos-top-left {
+  top: 2%;
+  left: 7%;
+  z-index: 25 !important;
+}
+
+.sticker-rot-left-1 {
+  transform: rotate(-6deg);
+}
+.pos-top-left:hover {
+  z-index: 35 !important;
+}
+.pos-top-left:hover .sticker-rot-left-1 {
+  transform: rotate(-2deg) scale(1.05);
+}
+
+/* Top-Right Photo 2 */
+.pos-top-right {
+  top: 2%;
+  right: 6%;
+  z-index: 25 !important;
+}
+
+.sticker-rot-right-1 {
+  transform: rotate(6deg);
+}
+.pos-top-right:hover {
+  z-index: 35 !important;
+}
+.pos-top-right:hover .sticker-rot-right-1 {
+  transform: rotate(2deg) scale(1.05);
+}
+
+/* Top-Right Mascot (Photo 7: Cat Sticker - 2x) */
+.pos-top-right-mascot,
+.pos-top-right-doodle {
+  top: 3%;
+  right: 0%;
+  z-index: 22;
+}
+
+.sticker-rot-right-doodle {
+  transform: rotate(8deg);
+}
+.pos-top-right-mascot:hover,
+.pos-top-right-doodle:hover {
+  z-index: 30 !important;
+}
+.pos-top-right-mascot:hover .sticker-rot-right-doodle,
+.pos-top-right-doodle:hover .sticker-rot-right-doodle {
+  transform: rotate(3deg) scale(1.08);
+}
+
+.doodle-bunny {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+  animation: bunnyBob 3s ease-in-out infinite;
+}
+
+@keyframes bunnyBob {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50% { transform: translateY(-5px) rotate(-2deg); }
+}
+
+/* Bottom-Left Photo 3 */
+.pos-bottom-left {
+  bottom: 2%;
+  left: 3%;
+}
+
+.sticker-rot-left-3 {
+  transform: rotate(4.5deg);
+}
+.pos-bottom-left:hover .sticker-rot-left-3 {
+  transform: rotate(1deg) scale(1.05);
+}
+
+/* Bottom-Right Photo 4 */
+.pos-bottom-right {
+  bottom: 2%;
+  right: 3%;
+}
+
+.sticker-rot-right-2 {
+  transform: rotate(-4deg);
+}
+.pos-bottom-right:hover .sticker-rot-right-2 {
+  transform: rotate(-1deg) scale(1.05);
+}
+
+/* Far Bottom-Right Extra Sticker (Photo 5: Blue Kitten/Deco) */
+.pos-bottom-right-extra {
+  bottom: 4%;
+  right: 0.5%;
+}
+
+.sticker-rot-right-3 {
+  transform: rotate(11deg);
+}
+.pos-bottom-right-extra:hover .sticker-rot-right-3 {
+  transform: rotate(6deg) scale(1.12);
+}
+
+/* ---------- PARTY HATS (OVERLAY DECO ON PHOTOS) ---------- */
+.party-hat {
+  display: none !important;
+}
+
+/* ---------- YELLOW DOODLE STARS (CRAYON LOOK) ---------- */
+.doodle-star {
+  z-index: 12;
+  pointer-events: none;
+  animation: starPulse 4s ease-in-out infinite;
+}
+
+.star-svg {
+  width: clamp(34px, 4.5vw, 54px);
+  height: clamp(34px, 4.5vw, 54px);
+  filter: drop-shadow(0 0 10px rgba(254, 214, 54, 0.7)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+}
+
+.star-svg.star-big {
+  width: clamp(55px, 7vw, 85px);
+  height: clamp(55px, 7vw, 85px);
+}
+
+@keyframes starPulse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.1) rotate(5deg);
+    opacity: 1;
+  }
+}
+
+/* Star Scattered Coordinates */
+.star-pos-1 {
+  top: 24%;
+  left: 32%;
+  animation-delay: 0.3s;
+}
+
+.star-pos-2 {
+  top: 22%;
+  right: 32%;
+  animation-delay: 1.1s;
+}
+
+.star-pos-3 {
+  bottom: 24%;
+  left: 33%;
+  animation-delay: 0.7s;
+}
+
+.star-pos-4 {
+  bottom: 23%;
+  right: 33%;
+  animation-delay: 1.5s;
+}
+
+.star-pos-big-left {
+  bottom: 12%;
+  left: 1%;
+  animation-delay: 0.5s;
+}
+
+.star-pos-bottom-right {
+  bottom: 4%;
+  right: 28%;
+  animation-delay: 1.8s;
+}
+
+/* Doodle Hearts */
+.doodle-heart {
+  z-index: 11;
+  pointer-events: none;
+}
+
+.doodle-heart svg {
+  width: clamp(24px, 3vw, 36px);
+  height: clamp(24px, 3vw, 36px);
+  filter: drop-shadow(0 0 10px rgba(255, 99, 141, 0.65)) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+}
+
+.heart-pos-1 {
+  top: 10%;
+  left: 30%;
+  animation: heartBeat 2.5s infinite;
+}
+
+.heart-pos-2 {
+  bottom: 12%;
+  right: 25%;
+  animation: heartBeat 2.5s infinite 1.2s;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* ==========================================================================
+   FESTIVE SCRAPBOOK STICKERS & DECORATIONS
+   ========================================================================== */
+.deco-bunting-garland {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  max-width: 920px;
+  height: 90px;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.deco-bunting-garland svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.35));
+}
+
+.deco-sticker {
+  z-index: 22;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.deco-sticker:hover {
+  transform: scale(1.12) rotate(4deg);
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.55));
+}
+
+.deco-sticker .sticker-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.38));
+}
+
+/* 1. Birthday Cake Sticker */
+.sticker-cake {
+  width: clamp(110px, 11vw, 150px);
+  height: clamp(125px, 12.5vw, 170px);
+  bottom: 8%;
+  left: 23%;
+  animation: gentleBobbing 3.5s ease-in-out infinite;
+}
+
+.cake-flame {
+  transform-origin: center bottom;
+  animation: flameFlicker 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes flameFlicker {
+  0% { transform: scale(0.9) rotate(-3deg); opacity: 0.9; }
+  100% { transform: scale(1.15) rotate(3deg); opacity: 1; filter: drop-shadow(0 0 6px #ffbe0b); }
+}
+
+/* 2. Pastel Balloons Cluster */
+.sticker-balloons {
+  width: clamp(105px, 10vw, 140px);
+  height: clamp(135px, 13vw, 180px);
+  top: 2%;
+  right: 17%;
+  animation: balloonFloat 4s ease-in-out infinite;
+}
+
+@keyframes balloonFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+/* 3. Gift Box Sticker */
+.sticker-gift {
+  width: clamp(95px, 9vw, 125px);
+  height: clamp(100px, 10vw, 135px);
+  bottom: 7%;
+  left: 15%;
+  animation: gentleBobbing 4s ease-in-out infinite 1s;
+}
+
+/* 4. Retro Camera Sticker */
+.sticker-camera {
+  width: clamp(100px, 9vw, 125px);
+  height: clamp(85px, 8vw, 110px);
+  top: 17%;
+  left: 19%;
+  animation: gentleBobbing 3.8s ease-in-out infinite 0.5s;
+}
+
+/* 5. Cupcake Sticker */
+.sticker-cupcake {
+  width: clamp(80px, 8vw, 105px);
+  height: clamp(95px, 9vw, 125px);
+  bottom: 7%;
+  right: 17%;
+  animation: gentleBobbing 3.2s ease-in-out infinite 1.5s;
+}
+
+@keyframes gentleBobbing {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-6px) rotate(2deg); }
+}
+
+/* Badges (Stamps) */
+.badge-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: clamp(0.72rem, 1vw, 0.85rem);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.5px;
+  border: 2px dashed;
+  white-space: nowrap;
+}
+
+.badge-gold {
+  background: linear-gradient(135deg, #fff9db 0%, #ffeaa7 100%);
+  color: #d48806;
+  border-color: #ffd666;
+}
+
+.badge-pink {
+  background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
+  color: #c9184a;
+  border-color: #ff758f;
+}
+
+.badge-lavender {
+  background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+  color: #7e22ce;
+  border-color: #c084fc;
+}
+
+.badge-peach {
+  background: linear-gradient(135deg, #fff1e6 0%, #fde2e4 100%);
+  color: #e07a5f;
+  border-color: #f4a261;
+}
+
+.sticker-badge-queen {
+  top: 18%;
+  right: 20%;
+  transform: rotate(6deg);
+}
+
+.sticker-badge-wish {
+  bottom: 19%;
+  left: 20%;
+  transform: rotate(-6deg);
+}
+
+.sticker-badge-sweet {
+  top: 13%;
+  left: 3%;
+  transform: rotate(-8deg);
+}
+
+.sticker-badge-prettiest {
+  bottom: 17%;
+  right: 22%;
+  transform: rotate(5deg);
+}
+
+/* Washi Tape Strips on Photo Corners */
+.tape-corner-left,
+.tape-corner-right {
+  position: absolute;
+  width: 65px;
+  height: 20px;
+  background: rgba(255, 230, 238, 0.82);
+  border: 1px dashed rgba(255, 130, 160, 0.5);
+  z-index: 30;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+.tape-corner-left {
+  top: -8px;
+  left: -8px;
+  transform: rotate(-32deg);
+}
+
+.tape-corner-right {
+  top: -8px;
+  right: -8px;
+  transform: rotate(32deg);
+}
+
+/* ---------- LOVE LETTER BUTTON (BOTTOM RIBBON) ---------- */
+.letter-trigger-container {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  text-align: center;
+}
+
+.btn-letter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fff0f3;
+  color: #ff477e;
+  border: 2px dashed #ff8fa3;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 71, 126, 0.12);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-letter:hover {
+  background-color: #ff477e;
+  color: #ffffff;
+  border-style: solid;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 20px rgba(255, 71, 126, 0.28);
+}
+
+/* ---------- MODALS (LETTER & PHOTO VIEWER) ---------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-backdrop.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px 28px;
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-backdrop.hidden .modal-card {
+  transform: scale(0.92);
+}
+
+.modal-card.hidden {
+  display: none;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: #f0f0f0;
+  border: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.modal-close-btn:hover {
+  background: #ff5580;
+  color: #fff;
+}
+
+/* Letter Modal Details */
+.letter-card {
+  border: 4px solid #ffe5ec;
+  background: #fffafa;
+}
+
+.letter-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.letter-title {
+  font-family: 'Caveat', cursive;
+  font-size: 2.2rem;
+  color: #ff477e;
+  margin-top: 5px;
+}
+
+.letter-body {
+  font-family: 'Patrick Hand', 'Caveat', cursive;
+  font-size: 1.35rem;
+  line-height: 1.7;
+  color: #444;
+}
+
+.letter-text {
+  margin-bottom: 16px;
+}
+
+.letter-signature {
+  margin-top: 24px;
+  text-align: right;
+  font-weight: 600;
+}
+
+.signature-name {
+  color: #ff477e;
+  font-size: 1.5rem;
+}
+
+.letter-footer {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.btn-modal-action {
+  background: #ff477e;
+  color: #ffffff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-modal-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 71, 126, 0.35);
+}
+
+/* ==========================================================================
+   ON-CANVAS CENTER FLIPBOOK (BUKU TEMPEL LIPAT DI LUAR)
+   Terletak langsung di tengah scrapbook, bukan di dalam popup.
+   Sebelum ditekan, halaman ucapan di bawahnya sudah terlihat mengintip.
+   ========================================================================== */
+.canvas-flipbook-container {
+  position: relative;
+  width: clamp(280px, 32vw, 360px);
+  height: clamp(340px, 40vw, 440px);
+  perspective: 1600px;
+  -webkit-perspective: 1600px;
+  margin: 10px auto;
+  user-select: none;
+  touch-action: pan-y;
+  cursor: grab;
+  z-index: 35;
+}
+
+.canvas-flipbook-container:active {
+  cursor: grabbing;
+}
+
+/* BASE SHEET (Inside Letter - Sits underneath and peeks out) */
+.canvas-sheet-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fffdfa;
+  border-radius: 18px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  border: 2px solid #ffd6de;
+  padding: 22px 20px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+/* PEEKING TAB (Mengintip di Sisi Kanan Sebelum Dibuka) */
+.canvas-peeking-tab {
+  position: absolute;
+  top: 40%;
+  right: -32px;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #fff0f3 0%, #ffd6e0 100%);
+  border: 2px dashed #ff6584;
+  border-left: none;
+  border-radius: 0 16px 16px 0;
+  padding: 8px 12px 8px 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #ff3366;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.35);
+  animation: tabPeekPulse 2.5s infinite;
+  cursor: pointer;
+  z-index: 2;
+  transition: transform 0.25s ease, opacity 0.3s ease;
+}
+
+.canvas-peeking-tab:hover {
+  transform: translateY(-50%) translateX(4px);
+  background: #ff477e;
+  color: #ffffff;
+  border-style: solid;
+}
+
+@keyframes tabPeekPulse {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(5px); }
+}
+
+.canvas-letter-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 5px solid #ffccd5;
+  padding-left: 14px;
+}
+
+.canvas-decor-stamp {
+  font-size: 1.8rem;
+  margin-bottom: 2px;
+}
+
+.canvas-letter-title {
+  font-family: 'Caveat', cursive;
+  font-size: 2.1rem;
+  color: #ff477e;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.canvas-letter-divider {
+  width: 45px;
+  height: 3px;
+  background: #ffccd5;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+
+.canvas-letter-text {
+  font-family: 'Patrick Hand', 'Caveat', cursive;
+  font-size: 1.28rem;
+  line-height: 1.55;
+  color: #333333;
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 2px;
+}
+
+.canvas-letter-text p {
+  margin-bottom: 8px;
+}
+
+.canvas-letter-sig {
+  text-align: right;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.canvas-sig-highlight {
+  color: #ff477e;
+  font-size: 1.4rem;
+}
+
+.canvas-fold-back-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #fff0f3;
+  border: 1.5px dashed #ff99b6;
+  border-radius: 20px;
+  padding: 6px 12px;
+  color: #ff5580;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.canvas-fold-back-hint:hover {
+  background: #ffe3ea;
+}
+
+/* FRONT FLAP (Halaman Depan main.png yang Terangkat Mengintip) */
+.canvas-sheet-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+  border-radius: 18px;
+  cursor: pointer;
+  /* KEADAAN AWAL: Terbuka sedikit (-8 derajat) sehingga halaman bawah terlihat mengintip */
+  transform: rotateY(-8deg);
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  filter: drop-shadow(4px 10px 24px rgba(0, 0, 0, 0.45));
+}
+
+/* Saat di-hover sebelum dibuka, terangkat sedikit lebih lebar */
+.canvas-flipbook-container:hover .canvas-sheet-flap:not(.open-active) {
+  transform: rotateY(-18deg);
+  filter: drop-shadow(8px 14px 28px rgba(0, 0, 0, 0.55));
+}
+
+/* Faces of the Flap */
+.canvas-flap-front,
+.canvas-flap-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 18px;
+}
+
+/* FRONT FACE: Photo Cover */
+.canvas-flap-front {
+  background: #fffdf9;
+  border: 2px solid #ffffff;
+  padding: 16px 14px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.canvas-photo-box {
+  width: 100%;
+  height: calc(100% - 46px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #fff5f7;
+  overflow: hidden;
+}
+
+.canvas-main-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Peel Hint at the bottom of the flap */
+.canvas-peel-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #fff0f3 0%, #ffe3ea 100%);
+  border: 1.5px dashed #ff8fa3;
+  padding: 6px 16px;
+  border-radius: 20px;
+  color: #ff477e;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(255, 71, 126, 0.2);
+  margin-top: 6px;
+  animation: canvasPeelGlow 2.5s infinite;
+  transition: opacity 0.3s ease;
+}
+
+.canvas-peel-hand {
+  display: inline-block;
+  animation: peelHandBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes peelHandBounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-5px); }
+}
+
+@keyframes canvasPeelGlow {
+  0%, 100% { box-shadow: 0 4px 12px rgba(255, 71, 126, 0.2); }
+  50% { box-shadow: 0 6px 18px rgba(255, 71, 126, 0.4); }
+}
+
+/* BACK FACE: Reverse of Flap when folded open flat */
+.canvas-flap-back {
+  background: #fff8f9;
+  transform: rotateY(180deg);
+  border-right: 5px solid #ffccd5;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas-back-stamp {
+  font-size: 3rem;
+  opacity: 0.35;
+}
+
+/* Photo Preview Modal Details */
+.photo-preview-card {
+  padding: 20px;
+  max-width: 520px;
+  text-align: center;
+  border: none !important;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+  background: #ffffff;
+}
+
+.preview-img-container {
+  width: 100%;
+  max-height: 65vh;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.preview-img-container img {
+  width: 100%;
+  height: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  display: block;
+}
+
+.preview-caption {
+  font-family: 'Caveat', cursive;
+  font-size: 1.8rem;
+  color: #ff5580;
+  margin-top: 15px;
+  font-weight: 700;
+}
+
+/* Confetti Canvas */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (HP & TABLET SCREEN ADAPTATIONS)
+   ========================================================================== */
+
+/* ---------- TABLET (max-width: 992px) ---------- */
+@media (max-width: 992px) {
+  .scrapbook-stage {
+    min-height: 1000px;
+    padding: 20px 10px 100px 10px;
+  }
+  
+  .pos-top-left-mascot { left: 0%; top: 4%; }
+  .pos-top-left { left: 3%; top: 2%; }
+  .pos-top-right { right: 2%; top: 2%; }
+  .pos-top-right-mascot,
+  .pos-top-right-doodle { right: -1%; top: 6%; }
+  .pos-bottom-left { left: 1%; bottom: 2%; }
+  .pos-bottom-right { right: 1%; bottom: 2%; }
+  .pos-bottom-right-extra { right: -1%; bottom: 6%; }
+
+  .sticker-cake { bottom: 6%; left: 16%; }
+  .sticker-balloons { top: 2%; right: 12%; }
+  .sticker-gift { bottom: 6%; left: 9%; }
+  .sticker-camera { top: 14%; left: 13%; }
+  .sticker-cupcake { bottom: 6%; right: 12%; }
+}
+
+/* ---------- MOBILE SCREEN (HP: max-width: 768px) ---------- */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  .scrapbook-stage {
+    min-height: auto;
+    padding: 15px 10px 120px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Garland banner on mobile */
+  .deco-bunting-garland {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: 480px;
+    height: 52px;
+    margin-bottom: 2px;
+  }
+
+  /* Center piece on mobile */
+  .center-piece {
+    position: relative;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    z-index: 30;
+  }
+
+  .text-top {
+    font-size: clamp(2.3rem, 10vw, 3.2rem);
+    margin-bottom: 4px;
+  }
+
+  .text-bottom {
+    font-size: clamp(1.9rem, 9vw, 2.6rem);
+    margin-top: 8px;
+  }
+
+  /* Center Flipbook on Mobile */
+  .canvas-flipbook-container {
+    width: min(300px, 86vw);
+    height: min(380px, 110vw);
+    margin: 8px auto;
+  }
+
+  /* Peeking tab adjusted for mobile width */
+  .canvas-peeking-tab {
+    right: -24px;
+    padding: 6px 10px 6px 6px;
+    font-size: 0.75rem;
+  }
+
+  .canvas-letter-title {
+    font-size: 1.75rem;
+  }
+
+  .canvas-letter-text {
+    font-size: 1.12rem;
+    line-height: 1.48;
+  }
+
+  .canvas-peel-hint {
+    font-size: 0.8rem;
+    padding: 5px 12px;
+  }
+
+  /* On mobile: Flipbook open behavior (no horizontal overflow, smooth full reveal) */
+  .canvas-flipbook-container.is-open .canvas-sheet-flap {
+    transform: rotateY(-180deg) scale(0.92);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  /* Mobile Scrapbook Photo Collage Feed */
+  .scrapbook-item.sticker-item {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 16px auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Photo Cards Sizing on Mobile */
+  .pos-top-left .sticker-card,
+  .pos-top-right .sticker-card,
+  .pos-bottom-left .sticker-card,
+  .pos-bottom-right .sticker-card {
+    width: min(290px, 80vw);
+    height: auto;
+    aspect-ratio: 3.5 / 4.4;
+    max-width: 330px;
+  }
+
+  /* Mascots on Mobile */
+  .pos-top-left-mascot {
+    margin-bottom: -50px !important;
+    margin-left: -70px !important;
+    z-index: 18 !important;
+  }
+  .pos-top-left-mascot .sticker-card {
+    width: 130px;
+    height: 130px;
+  }
+
+  .pos-top-right-mascot {
+    margin-bottom: -40px !important;
+    margin-right: -70px !important;
+    z-index: 18 !important;
+  }
+  .pos-top-right-mascot .sticker-card {
+    width: 140px;
+    height: 140px;
+  }
+
+  .pos-bottom-right-extra {
+    margin-top: -30px !important;
+    margin-right: -60px !important;
+  }
+  .pos-bottom-right-extra .sticker-card {
+    width: 120px;
+    height: 120px;
+  }
+
+  /* Decorative Stickers on Mobile */
+  .scrapbook-item.deco-sticker {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 10px auto;
+  }
+
+  .sticker-cake {
+    width: 110px;
+    height: 125px;
+  }
+
+  .sticker-balloons {
+    width: 100px;
+    height: 130px;
+  }
+
+  .sticker-gift {
+    width: 90px;
+    height: 100px;
+  }
+
+  .sticker-camera {
+    width: 95px;
+    height: 80px;
+  }
+
+  .sticker-cupcake {
+    width: 80px;
+    height: 95px;
+  }
+
+  /* Floating Stars & Hearts on Mobile */
+  .doodle-star,
+  .doodle-heart {
+    position: absolute;
+  }
+  .star-pos-1 { top: 6%; left: 6%; }
+  .star-pos-2 { top: 5%; right: 6%; }
+  .star-pos-3 { top: 35%; left: 4%; }
+  .star-pos-4 { top: 34%; right: 4%; }
+  .star-pos-big-left { top: 65%; left: 2%; }
+  .star-pos-bottom-right { top: 85%; right: 4%; }
+  .heart-pos-1 { top: 4%; left: 16%; }
+  .heart-pos-2 { top: 45%; right: 12%; }
+
+  /* Bottom Sticky Letter Button on Mobile */
+  .letter-trigger-container {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 320px;
+    z-index: 1000;
+  }
+
+  .btn-letter {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(255, 71, 126, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Floating Music Controller on Mobile */
+  .music-controller {
+    bottom: 74px;
+    right: 16px;
+    padding: 6px 12px;
+    z-index: 1001;
+  }
+}

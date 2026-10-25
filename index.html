@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Birthday! 🎂✨</title>
+  
+  <!-- Google Fonts: Caveat & Pacifico (Handwritten) + Quicksand for clean UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Pacifico&family=Patrick+Hand&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- ==================== INTRO / OVERLAY SCREEN ==================== -->
+  <div id="intro-overlay" class="intro-overlay">
+    <div class="intro-card">
+      <div class="intro-envelope-icon">💌</div>
+      <h2 class="intro-title">Spesial Untukmu</h2>
+      <p class="intro-subtitle">Ada kejutan kecil yang menunggumu di dalam...</p>
+      <button id="btn-open" class="btn-open">
+        <span>Buka Ucapan</span>
+        <svg class="btn-sparkle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+        </svg>
+      </button>
+      <p class="intro-tip">✨ Nyalakan suara untuk pengalaman terbaik ✨</p>
+    </div>
+  </div>
+
+  <!-- ==================== BACKGROUND AUDIO ==================== -->
+  <audio id="bgm" src="./assets/audio/bgm.aac" loop preload="auto"></audio>
+
+  <!-- ==================== FLOATING MUSIC CONTROLLER ==================== -->
+  <div id="music-controller" class="music-controller hidden" title="Putar / Jeda Musik">
+    <div class="disc-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+    </div>
+    <div class="sound-wave">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <!-- ==================== DYNAMIC BACKGROUND SLIDESHOW (VIDEO & FOTO) ==================== -->
+  <div id="bg-slideshow" class="bg-slideshow" aria-hidden="true">
+    <div class="bg-media-layer bg-layer-a" id="bg-layer-a"></div>
+    <div class="bg-media-layer bg-layer-b" id="bg-layer-b"></div>
+    <!-- Soft aesthetic gradient overlay to ensure text and scrapbook stickers pop out -->
+    <div class="bg-aesthetic-overlay"></div>
+  </div>
+
+  <!-- ==================== SCRAPBOOK STAGE CONTAINER ==================== -->
+  <main class="scrapbook-stage" id="scrapbook-stage">
+
+    <!-- ========== FESTIVE BUNTING GARLAND BANNER ========== -->
+    <div class="scrapbook-item deco-bunting-garland" aria-hidden="true">
+      <svg viewBox="0 0 800 110" preserveAspectRatio="none">
+        <path d="M0,20 Q200,75 400,20 T800,20" fill="none" stroke="#ffccd5" stroke-width="3" stroke-dasharray="6,4"/>
+        <polygon points="50,32 78,82 106,32" fill="#ff7597"/>
+        <polygon points="130,42 158,94 186,42" fill="#fed636"/>
+        <polygon points="210,48 238,100 266,48" fill="#b9fbc0"/>
+        <polygon points="290,48 318,98 346,48" fill="#a0c4ff"/>
+        <polygon points="370,42 398,92 426,42" fill="#ffc6ff"/>
+        <polygon points="450,48 478,100 506,48" fill="#ffd166"/>
+        <polygon points="530,48 558,98 586,48" fill="#ff758c"/>
+        <polygon points="610,42 638,94 666,42" fill="#80ed99"/>
+        <polygon points="690,32 718,82 746,32" fill="#90e0ef"/>
+      </svg>
+    </div>
+
+    <!-- ========== CENTER MAIN SECTION ========== -->
+    <div class="scrapbook-item center-piece" id="center-piece">
+      <!-- Top Handwritten Text -->
+      <h1 class="scrapbook-text text-top">happy b'day</h1>
+
+      <!-- Center On-Canvas Flipbook (Buku Tempel Lipat di Luar) -->
+      <div class="canvas-flipbook-container" id="canvas-flipbook">
+        
+        <!-- BASE SHEET (Halaman Ucapan yang Mengintip di Bawah) -->
+        <div class="canvas-sheet-base" id="canvas-sheet-base">
+          <!-- Peeking Tab on the Right Edge -->
+          <div class="canvas-peeking-tab" id="canvas-peeking-tab">
+            <span class="tab-icon">💌</span>
+            <span class="tab-label">Ada pesan rahasia ➔</span>
+          </div>
+
+          <div class="canvas-letter-body">
+            <div class="canvas-decor-stamp">🌸</div>
+            <h3 class="canvas-letter-title">Selamat Ulang Tahun, Caca! 🎂✨</h3>
+            <div class="canvas-letter-divider"></div>
+
+            <div class="canvas-letter-text">
+              <p>
+                Di hari yang sangat spesial ini, aku cuma mau bilang terima kasih banyak sudah hadir dan membawa begitu banyak kebahagiaan serta senyuman di hidupku.
+              </p>
+              <p>
+                Semoga di usiamu yang baru ini, setiap harimu selalu dipenuhi kesehatan, tawa yang lepas, cinta yang melimpah, dan semua impian indahmu tercapai satu per satu.
+              </p>
+              <p class="canvas-letter-sig">
+                Selalu menjadi gadis paling manis dan bahagia yaa...<br>
+                <span class="canvas-sig-highlight">With all my love & hugs ❤️</span>
+              </p>
+            </div>
+
+            <div class="canvas-fold-back-hint" id="canvas-fold-back">
+              <span>👉 Klik / geser ke kanan untuk menutup</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FRONT FLAP (Halaman Depan Foto main.png yang Terbuka Perlahan) -->
+        <div class="canvas-sheet-flap" id="canvas-sheet-flap">
+          <!-- FRONT FACE: Foto main.png -->
+          <div class="canvas-flap-front">
+            <div class="canvas-photo-box">
+              <img src="./assets/images/main.png" alt="Foto Utama Caca" class="canvas-main-photo" id="img-main">
+            </div>
+
+            <!-- Hint Animasi di Sisi Kanan Kertas -->
+            <div class="canvas-peel-hint" id="canvas-peel-hint">
+              <span class="canvas-peel-hand">👈</span>
+              <span class="canvas-peel-text">Tarik / klik untuk buka</span>
+            </div>
+          </div>
+
+          <!-- BACK FACE: Sisi Belakang Kertas Saat Terbuka -->
+          <div class="canvas-flap-back">
+            <div class="canvas-back-stamp">💌</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Handwritten Text -->
+      <h2 class="scrapbook-text text-bottom">my prettiest girl</h2>
+    </div>
+
+    <!-- ========== SURROUNDING PHOTO STICKERS ========== -->
+
+    <!-- Photo 1 (Top Left) -->
+    <div class="scrapbook-item sticker-item pos-top-left" data-caption="Cantik banget! ✨">
+      <div class="washi-tape tape-corner-left"></div>
+      <div class="sticker-card sticker-rot-left-1">
+        <div class="sticker-inner">
+          <img src="./assets/images/photo1.png" alt="Foto Caca 1" class="sticker-img">
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticker / Photo Mascot 1 (Next to Top Left: Kitten with Heart) -->
+    <div class="scrapbook-item sticker-item pos-top-left-mascot" data-caption="Meow! Paling lucu 🐱">
+      <div class="sticker-card sticker-mini sticker-rot-left-2">
+        <div class="heart-float">💖</div>
+        <div class="sticker-inner">
+          <img src="./assets/images/photo6.png" alt="Cute Kitten" class="sticker-img">
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo 2 (Top Right) -->
+    <div class="scrapbook-item sticker-item pos-top-right" data-caption="Senyumnya manis banget sih dek🌸">
+      <div class="washi-tape tape-corner-right"></div>
+      <div class="sticker-card sticker-rot-right-1">
+        <div class="sticker-inner">
+          <img src="./assets/images/photo2.png" alt="Foto Caca 2" class="sticker-img">
+        </div>
+      </div>
+    </div>
+
+    <!-- Stiker Kucing Kanan Atas (Photo 7) -->
+    <div class="scrapbook-item sticker-item pos-top-right-mascot" data-caption="Kucing gemoyy! 🐱✨">
+      <div class="sticker-card sticker-mini sticker-rot-right-doodle">
+        <div class="sticker-inner">
+          <img src="./assets/images/photo7.png" alt="Stiker Kucing Kanan Atas" class="sticker-img">
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo 3 (Bottom Left) -->
+    <div class="scrapbook-item sticker-item pos-bottom-left" data-caption="Gemes banget! 🥰">
+      <div class="washi-tape tape-corner-left"></div>
+      <div class="sticker-card sticker-rot-left-3">
+        <div class="sticker-inner">
+          <img src="./assets/images/photo3.png" alt="Foto Caca 3" class="sticker-img">
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo 4 (Bottom Right) -->
+    <div class="scrapbook-item sticker-item pos-bottom-right" data-caption="Happy terus yaa cantik 💕">
+      <div class="washi-tape tape-corner-right"></div>
+      <div class="sticker-card sticker-rot-right-2">
+        <div class="sticker-inner">
+          <img src="./assets/images/photo4.png" alt="Foto Caca 4" class="sticker-img">
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo 8 (Stiker Kanan Bawah) -->
+    <div class="scrapbook-item sticker-item pos-bottom-right-extra" data-caption="Hehe gemoyy! 🐾">
+      <div class="sticker-card sticker-mini sticker-rot-right-3">
+        <div class="sticker-inner">
+          <img src="./assets/images/photo8.png" alt="Foto Stiker 8" class="sticker-img">
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== FESTIVE SCRAPBOOK STICKERS ========== -->
+    
+    <!-- 1. Birthday Cake with Lit Candles & Strawberry Glaze -->
+    <div class="scrapbook-item deco-sticker sticker-cake" data-caption="Tiup lilinnya dan buat permohonan! 🎂✨">
+      <svg viewBox="0 0 160 180" class="sticker-svg">
+        <ellipse cx="80" cy="165" rx="68" ry="11" fill="#f8edeb" stroke="#fcd5ce" stroke-width="2.5"/>
+        <rect x="25" y="115" width="110" height="42" rx="10" fill="#fff0f3" stroke="#ffccd5" stroke-width="2"/>
+        <path d="M25,124 Q35,134 45,124 Q55,134 65,124 Q75,134 85,124 Q95,134 105,124 Q115,134 125,124 Q135,134 135,124 L135,115 L25,115 Z" fill="#ff758c"/>
+        <rect x="42" y="80" width="76" height="36" rx="8" fill="#ffe5ec" stroke="#ffb3c6" stroke-width="2"/>
+        <path d="M42,89 Q52,97 62,89 Q72,97 82,89 Q92,97 102,89 Q112,97 118,89 L118,80 L42,80 Z" fill="#ff4d6d"/>
+        <rect x="58" y="52" width="44" height="30" rx="6" fill="#fff0f3" stroke="#ffccd5" stroke-width="2"/>
+        <path d="M58,59 Q68,67 78,59 Q88,67 98,59 Q102,63 102,52 L58,52 Z" fill="#ff758c"/>
+        <path d="M80,41 C75,35 68,43 75,50 C80,54 80,54 80,54 C80,54 80,54 85,50 C92,43 85,35 80,41 Z" fill="#e63946"/>
+        <rect x="68" y="32" width="4" height="20" fill="#ffd166" rx="2"/>
+        <rect x="78" y="26" width="4" height="26" fill="#06d6a0" rx="2"/>
+        <rect x="88" y="32" width="4" height="20" fill="#ff99c8" rx="2"/>
+        <path class="cake-flame" d="M70,24 C67,28 73,28 70,32 C67,28 73,28 70,24 Z" fill="#ffbe0b"/>
+        <path class="cake-flame" d="M80,18 C77,22 83,22 80,26 C77,22 83,22 80,18 Z" fill="#ffbe0b"/>
+        <path class="cake-flame" d="M90,24 C87,28 93,28 90,32 C87,28 93,28 90,24 Z" fill="#ffbe0b"/>
+      </svg>
+    </div>
+
+    <!-- 2. Pastel Balloons Cluster -->
+    <div class="scrapbook-item deco-sticker sticker-balloons" data-caption="Terbang tinggi meraih impian! 🎈">
+      <svg viewBox="0 0 140 180" class="sticker-svg">
+        <path d="M48,95 Q65,130 70,165" fill="none" stroke="#e0afa0" stroke-width="2"/>
+        <path d="M70,85 Q70,125 70,165" fill="none" stroke="#e0afa0" stroke-width="2"/>
+        <path d="M92,95 Q75,130 70,165" fill="none" stroke="#e0afa0" stroke-width="2"/>
+        <circle cx="70" cy="165" r="4" fill="#ff758c"/>
+        <ellipse cx="48" cy="65" rx="28" ry="34" fill="#c8b6ff" transform="rotate(-10 48 65)"/>
+        <polygon points="46,98 52,98 49,103" fill="#c8b6ff"/>
+        <ellipse cx="40" cy="53" rx="6" ry="11" fill="#ffffff" opacity="0.45" transform="rotate(-15 40 53)"/>
+        <ellipse cx="92" cy="65" rx="28" ry="34" fill="#ffcad4" transform="rotate(10 92 65)"/>
+        <polygon points="90,98 96,98 93,103" fill="#ffcad4"/>
+        <ellipse cx="85" cy="53" rx="6" ry="11" fill="#ffffff" opacity="0.45" transform="rotate(5 85 53)"/>
+        <ellipse cx="70" cy="46" rx="30" ry="36" fill="#ff7597"/>
+        <polygon points="68,81 74,81 71,86" fill="#ff7597"/>
+        <ellipse cx="61" cy="33" rx="7" ry="13" fill="#ffffff" opacity="0.55" transform="rotate(-10 61 33)"/>
+      </svg>
+    </div>
+
+    <!-- 3. Birthday Gift Box Sticker -->
+    <div class="scrapbook-item deco-sticker sticker-gift" data-caption="Kado penuh cinta buat Caca! 🎁">
+      <svg viewBox="0 0 130 140" class="sticker-svg">
+        <rect x="22" y="55" width="86" height="70" rx="8" fill="#fff0f3" stroke="#ffccd5" stroke-width="2.5"/>
+        <rect x="18" y="44" width="94" height="18" rx="6" fill="#ff758c"/>
+        <rect x="58" y="55" width="14" height="70" fill="#ffd166"/>
+        <rect x="58" y="44" width="14" height="18" fill="#ffd166"/>
+        <path d="M65,44 C45,20 28,40 60,42 Z" fill="#ffd166"/>
+        <path d="M65,44 C85,20 102,40 70,42 Z" fill="#ffd166"/>
+        <circle cx="65" cy="43" r="6" fill="#ffbe0b"/>
+        <g transform="translate(78, 72) rotate(14)">
+          <polygon points="0,0 36,0 44,12 36,24 0,24" fill="#ffffff" stroke="#ff8fa3" stroke-width="1.5"/>
+          <circle cx="6" cy="12" r="2.5" fill="#ff8fa3"/>
+          <text x="14" y="16" font-family="'Caveat', cursive" font-size="11" font-weight="bold" fill="#ff4d6d">Caca 💝</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 4. Cute Retro Polaroid Camera -->
+    <div class="scrapbook-item deco-sticker sticker-camera" data-caption="Say cheese! Senyum termanis 📸">
+      <svg viewBox="0 0 130 110" class="sticker-svg">
+        <rect x="15" y="28" width="100" height="70" rx="16" fill="#ffe5ec" stroke="#ffb3c6" stroke-width="2.5"/>
+        <rect x="36" y="18" width="28" height="12" rx="4" fill="#ffccd5"/>
+        <circle cx="86" cy="22" r="6" fill="#ffd166"/>
+        <circle cx="65" cy="62" r="26" fill="#ffffff" stroke="#ff8fa3" stroke-width="3"/>
+        <circle cx="65" cy="62" r="18" fill="#4a4e69"/>
+        <circle cx="65" cy="62" r="11" fill="#22223b"/>
+        <circle cx="61" cy="58" r="3.5" fill="#ffffff" opacity="0.8"/>
+        <text x="24" y="50" font-size="14">💖</text>
+      </svg>
+    </div>
+
+    <!-- 5. Cute Strawberry Cupcake -->
+    <div class="scrapbook-item deco-sticker sticker-cupcake" data-caption="Manis seperti senyummu 🧁">
+      <svg viewBox="0 0 110 130" class="sticker-svg">
+        <polygon points="25,65 35,115 75,115 85,65" fill="#ffd166" stroke="#ffbe0b" stroke-width="2"/>
+        <line x1="38" y1="65" x2="45" y2="115" stroke="#ffbe0b" stroke-width="1.5"/>
+        <line x1="55" y1="65" x2="55" y2="115" stroke="#ffbe0b" stroke-width="1.5"/>
+        <line x1="72" y1="65" x2="65" y2="115" stroke="#ffbe0b" stroke-width="1.5"/>
+        <path d="M20,68 C15,50 40,45 55,50 C70,45 95,50 90,68 Z" fill="#ff99c8"/>
+        <path d="M30,52 C25,36 45,32 55,36 C65,32 85,36 80,52 Z" fill="#ffccd5"/>
+        <path d="M42,38 C40,24 55,22 55,25 C55,22 70,24 68,38 Z" fill="#fff0f3"/>
+        <circle cx="55" cy="18" r="8" fill="#e63946"/>
+        <path d="M57,12 Q65,4 72,8" fill="none" stroke="#2b9348" stroke-width="2" stroke-linecap="round"/>
+        <rect x="36" y="56" width="5" height="2" fill="#ffd166" rx="1" transform="rotate(25 36 56)"/>
+        <rect x="68" y="58" width="5" height="2" fill="#06d6a0" rx="1" transform="rotate(-30 68 58)"/>
+      </svg>
+    </div>
+
+    <!-- 6. Aesthetic Badge: QUEEN OF THE DAY -->
+    <div class="scrapbook-item deco-sticker sticker-badge-queen">
+      <div class="badge-inner badge-gold">
+        <span class="badge-icon">👑</span>
+        <span class="badge-title">QUEEN OF THE DAY</span>
+      </div>
+    </div>
+
+    <!-- 7. Aesthetic Badge: MAKE A WISH -->
+    <div class="scrapbook-item deco-sticker sticker-badge-wish">
+      <div class="badge-inner badge-pink">
+        <span class="badge-icon">🎂</span>
+        <span class="badge-title">MAKE A WISH!</span>
+      </div>
+    </div>
+
+    <!-- 8. Aesthetic Badge: 100% SWEETEST -->
+    <div class="scrapbook-item deco-sticker sticker-badge-sweet">
+      <div class="badge-inner badge-lavender">
+        <span class="badge-icon">💖</span>
+        <span class="badge-title">100% SWEETEST</span>
+      </div>
+    </div>
+
+    <!-- 9. Ribbon Badge: PRETTIEST GIRL -->
+    <div class="scrapbook-item deco-sticker sticker-badge-prettiest">
+      <div class="badge-inner badge-peach">
+        <span class="badge-icon">🌸</span>
+        <span class="badge-title">PRETTIEST GIRL</span>
+      </div>
+    </div>
+
+    <!-- ========== YELLOW DOODLE STARS (CRAYON/HAND-DRAWN) ========== -->
+    <!-- Star 1: Upper Left of Center -->
+    <div class="scrapbook-item doodle-star star-pos-1">
+      <svg class="star-svg" viewBox="0 0 100 100">
+        <path d="M50 8 L61 36 L92 38 L67 58 L75 88 L50 70 L25 88 L33 58 L8 38 L39 36 Z" 
+              fill="#fed636" stroke="#f6be12" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Star 2: Upper Right of Center -->
+    <div class="scrapbook-item doodle-star star-pos-2">
+      <svg class="star-svg" viewBox="0 0 100 100">
+        <path d="M50 10 L60 38 L90 38 L66 56 L74 86 L50 68 L26 86 L34 56 L10 38 L40 38 Z" 
+              fill="#ffdc4a" stroke="#f4be16" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Star 3: Lower Left of Center -->
+    <div class="scrapbook-item doodle-star star-pos-3">
+      <svg class="star-svg" viewBox="0 0 100 100">
+        <path d="M50 12 L62 37 L90 39 L68 57 L75 85 L50 69 L25 85 L32 57 L10 39 L38 37 Z" 
+              fill="#ffe055" stroke="#ebb110" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Star 4: Lower Right of Center -->
+    <div class="scrapbook-item doodle-star star-pos-4">
+      <svg class="star-svg" viewBox="0 0 100 100">
+        <path d="M50 10 L63 36 L92 37 L69 57 L76 86 L50 70 L24 86 L31 57 L8 37 L37 36 Z" 
+              fill="#ffd83d" stroke="#f0b818" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Star 5: Big Crayon Star Bottom Left -->
+    <div class="scrapbook-item doodle-star star-pos-big-left">
+      <svg class="star-svg star-big" viewBox="0 0 110 110">
+        <path d="M55 10 L68 40 L100 42 L74 64 L83 96 L55 77 L27 96 L36 64 L10 42 L42 40 Z" 
+              fill="#ffe46b" stroke="#eab308" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Star 6: Doodle Star Bottom Right -->
+    <div class="scrapbook-item doodle-star star-pos-bottom-right">
+      <svg class="star-svg" viewBox="0 0 100 100">
+        <path d="M50 12 L61 38 L90 39 L66 58 L74 88 L50 70 L26 88 L34 58 L10 39 L39 38 Z" 
+              fill="#fed636" stroke="#f6be12" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Little Doodle Hearts -->
+    <div class="scrapbook-item doodle-heart heart-pos-1">
+      <svg viewBox="0 0 50 50">
+        <path d="M25 39 C15 30 5 20 5 12 C5 6 10 3 16 3 C21 3 24 6 25 10 C26 6 29 3 34 3 C40 3 45 6 45 12 C45 20 35 30 25 39 Z" 
+              fill="#ff99b6" stroke="#ff638d" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="scrapbook-item doodle-heart heart-pos-2">
+      <svg viewBox="0 0 50 50">
+        <path d="M25 39 C15 30 5 20 5 12 C5 6 10 3 16 3 C21 3 24 6 25 10 C26 6 29 3 34 3 C40 3 45 6 45 12 C45 20 35 30 25 39 Z" 
+              fill="#ffb3c6" stroke="#ff7597" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Interactive Love Letter Ribbon at the Bottom -->
+    <div class="letter-trigger-container">
+      <button id="btn-read-letter" class="btn-letter">
+        <span class="envelope-stamp">💌</span>
+        <span>Baca Pesan Cinta Buat Caca</span>
+        <span class="sparkle">✨</span>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ==================== POPUP MODAL (MESSAGE LETTER & PHOTO VIEWER) ==================== -->
+  <div id="modal-backdrop" class="modal-backdrop hidden">
+    <!-- Letter Popup Card -->
+    <div id="letter-modal" class="modal-card letter-card hidden">
+      <button class="modal-close-btn" id="close-letter-btn">&times;</button>
+      <div class="letter-header">
+        <span class="stamp-icon">🌸</span>
+        <h3 class="letter-title">Selamat Ulang Tahun, Caca Sayang! 🎂</h3>
+      </div>
+      <div class="letter-body">
+        <p class="letter-text">
+          Di hari yang sangat spesial ini, aku cuma mau bilang terima kasih sudah lahir dan membawa begitu banyak kebahagiaan dan tawa di hidupku.
+        </p>
+        <p class="letter-text">
+          Semoga di usiamu yang baru ini, setiap harimu selalu dipenuhi cinta, kesehatan, impian yang tercapai, dan senyuman paling manis di dunia.
+        </p>
+        <p class="letter-signature">
+          Selalu menyayangimu,<br>
+          <span class="signature-name">With all my love ❤️</span>
+        </p>
+      </div>
+      <div class="letter-footer">
+        <button class="btn-modal-action" id="btn-close-letter-bottom">Tutup Surat ✨</button>
+      </div>
+    </div>
+
+    <!-- Photo Enlarge Preview Modal -->
+    <div id="photo-modal" class="modal-card photo-preview-card hidden">
+      <button class="modal-close-btn" id="close-photo-btn">&times;</button>
+      <div class="preview-img-container">
+        <img id="preview-img" src="" alt="Pratinjau Foto">
+      </div>
+      <p id="preview-caption" class="preview-caption"></p>
+    </div>
+  </div>
+
+  <!-- Canvas for celebration confetti -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Script -->
+  <script src="./script.js"></script>
+</body>
+</html>
